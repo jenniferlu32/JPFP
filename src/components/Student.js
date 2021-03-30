@@ -1,18 +1,15 @@
 import React from 'react';
+import axios from 'axios';
+//const { models: { Student, Campus } } = require('../../db/data');
 
-const Student = (props) => { //takes student from Students
-  const { student } = props; //{id: 1, firstName: "Jennifer", …}
+const singleStudent = (props) => {
+  const id = window.location.hash.slice(10);
+  console.log(id);
   return (
     <div>
-      <img src={student.imageUrl}></img>
-      <h3>
-        {student.firstName + ' ' + student.lastName}
-      </h3>
-    <p>
-      {student.email}
-    </p>
+      hi
     </div>
   )
 }
 
-export default Student;
+export default singleStudent;

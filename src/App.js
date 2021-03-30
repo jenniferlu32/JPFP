@@ -5,6 +5,7 @@ import { loadStudents, createStudent, loadCampuses } from './store';
 import Home from './components/Home';
 import Nav from './components/Nav';
 import Students from './components/Students';
+import singleStudent from './components/Student';
 import Campuses from './components/Campuses';
 
 class App extends React.Component {
@@ -45,9 +46,22 @@ class App extends React.Component {
             <input value={gpa} type='number' onChange={(ev) => this.setState({ gpa: ev.target.value })}/>
             <button>Submit</button>
           </form>
+
           <Route path='/' exact component={Home} />
-          <Route path='/students' component={() => <Students students={this.props.students} />}/>
+
+          <Route //route showing all students
+          path='/students'
+          component={() => <Students
+            students={this.props.students}
+            />}/>
+
+          <Route //route showing single student
+          path={`/student/:id`}
+          component={singleStudent}
+          />
+
           <Route path='/campuses' component={() => <Campuses campuses={this.props.campuses} />} />
+
         </div>
       </HashRouter>
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Campus = (props) => {
+
+const singleCampus = (props) => {
   const { campus } = props;
   return (
     <div key={campus.id}>
@@ -10,4 +11,4 @@ const Campus = (props) => {
   )
 }
 
-export default Campus;
+export default singleCampus;

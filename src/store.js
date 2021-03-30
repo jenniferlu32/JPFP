@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 const LOAD_STUDENTS = 'LOAD_STUDENTS';
 const LOAD_CAMPUSES = 'LOAD_CAMPUSES';
 const CREATE_STUDENT = 'CREATE_STUDENT';
+const SINGLE_STUDENT = 'SINGLE_STUDENT';
 
 //ACTIONS
 const loadStudentsObj = (students) => {
