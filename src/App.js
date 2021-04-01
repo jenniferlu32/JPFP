@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Nav from './components/Nav';
 import Students from './components/Students';
 import singleStudent from './components/Student';
+import singleCampus from './components/Campus';
 import Campuses from './components/Campuses';
 
 class App extends React.Component {
@@ -60,7 +61,14 @@ class App extends React.Component {
           component={singleStudent}
           />
 
-          <Route path='/campuses' component={() => <Campuses campuses={this.props.campuses} />} />
+          <Route //route showing all campuses
+          path='/campuses'
+          component={() => <Campuses campuses={this.props.campuses} />} />
+
+          <Route
+          path='/campus/:id' //route showing single campus
+          component={singleCampus}
+          />
 
         </div>
       </HashRouter>

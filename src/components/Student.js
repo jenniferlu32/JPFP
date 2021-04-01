@@ -1,15 +1,40 @@
 import React from 'react';
 import axios from 'axios';
-//const { models: { Student, Campus } } = require('../../db/data');
 
-const singleStudent = (props) => {
-  const id = window.location.hash.slice(10);
-  console.log(id);
-  return (
-    <div>
-      hi
-    </div>
-  )
+class singleStudent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      student: '',
+    };
+  }
+
+  async componentDidMount() {
+    const id = window.location.hash.slice(10);
+    const student = (await axios.get(`api/students/${id}`)).data;
+    this.setState({ student });
+  }
+
+  render() {
+    const { student } = this.state;
+    if (!student.campus) {
+      return null;
+    } else {
+      return (
+          <div>
+          <img src={student.imageUrl}></img>
+          <h3>
+            {student.firstName + ' ' + student.lastName}
+          </h3>
+          <p>
+            Email: {student.email}
+          </p>
+          <p>GPA: {student.gpa}</p>
+          <p>Campus: {student.campus.name}</p>
+        </div>
+      )
+    }
+  }
 }
 
 export default singleStudent;
