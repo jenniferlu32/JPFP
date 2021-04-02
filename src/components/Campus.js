@@ -28,7 +28,7 @@ class singleCampus extends React.Component {
             {campus.name}
           </h3>
           <p>
-            {campus.address}
+            {`Address: ${campus.address}`}
           </p>
           <p>{`Description: ${campus.description}`}</p>
           <h3>Students:</h3>

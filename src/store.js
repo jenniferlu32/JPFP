@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 const LOAD_STUDENTS = 'LOAD_STUDENTS';
 const LOAD_CAMPUSES = 'LOAD_CAMPUSES';
 const CREATE_STUDENT = 'CREATE_STUDENT';
-const SINGLE_STUDENT = 'SINGLE_STUDENT';
+const CREATE_CAMPUS = 'CREATE_CAMPUS';
 
 //ACTIONS
 const loadStudentsObj = (students) => {
@@ -64,6 +64,26 @@ const createStudent = (firstName, lastName, email, gpa) => {
   }
 }
 
+const _createCampus = (campus) => { //takes in campus object from createCampus func
+  return {
+    type: CREATE_CAMPUS,
+    campus
+  }
+}
+
+const createCampus = (name, address, description) => { //gets imported from component
+  return async(dispatch) => {
+    try {
+      const campus = (await axios.post('/api/campus', { //posts data to /api/campus url?
+        name, address, description
+      })).data;
+      dispatch(_createCampus(campus));
+    } catch(err) {
+      console.log(err);
+    }
+  }
+}
+
 //REDUCERS
 const studentsReducer = (state=[], action) => {
   //action: {type: "LOAD_STUDENTS", students: Array(3)}
@@ -80,6 +100,9 @@ const campusesReducer = (state=[], action) => {
   if (action.type === LOAD_CAMPUSES) {
     state = action.campuses;
   }
+  if (action.type === CREATE_CAMPUS) {
+    state = [...state, action.campus]; //turn state into array for campuses.map in Campuses component
+  }
   return state;
 }
 
@@ -93,4 +116,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
-export { loadStudents, loadCampuses, createStudent };
+export { loadStudents, loadCampuses, createStudent, createCampus };

@@ -62,4 +62,16 @@ router.get('/campuses/:id', async(req, res, next) => {
   }
 });
 
+router.post('/campus', async(req, res, next) => {
+  try {
+    const { name, address, description } = req.body;
+    const campus = await Campus.create({
+      name, address, description
+    });
+    res.status(201).send(campus);
+  } catch(err) {
+    next(err);
+  }
+});
+
 module.exports = router;
