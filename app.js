@@ -6,10 +6,13 @@ const app = express();
 app.use(express.json()) //to print out data from axios
 
 //HTML
-app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'index.html')))
+app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'public', 'index.html')))
 
 //front end index.js
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
+
+//html
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 //routes
 app.use('/api', require('./api'));

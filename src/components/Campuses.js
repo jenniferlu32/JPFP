@@ -18,25 +18,28 @@ class Campuses extends React.Component {
     return (
       <div>
         <AddButton />
+        <div className='grid'>
         {
           this.props.campuses.map(campus => {
             return (
-              <div key={campus.id}>
+              <div key={campus.id} className='container'>
               <Link to={`/campus/${campus.id}`}>
-                  <img src={campus.imageUrl}></img>
-                  <h3>
-                    {campus.name}
-                  </h3>
-                  <p>
-                    {campus.address}
-                  </p>
-
+                  <div className='each-grid'>
+                    <img src={campus.imageUrl}></img>
+                    <h3>
+                      {campus.name}
+                    </h3>
+                    <p>
+                      {campus.address}
+                    </p>
+                  </div>
               </Link>
-              <button onClick={() => this.onDelete(campus.id)}>Delete</button>
+              <button onClick={() => this.onDelete(campus.id)}>X</button>
               </div>
             )
           })
         }
+        </div>
       </div>
     )
   }

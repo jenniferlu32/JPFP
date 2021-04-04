@@ -8,6 +8,7 @@ const CREATE_STUDENT = 'CREATE_STUDENT';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
 const DELETE_STUDENT = 'DELETE_STUDENT';
+const EDIT_CAMPUS = 'EDIT_CAMPUS';
 
 //ACTIONS
 const loadStudentsObj = (students) => {

@@ -24,14 +24,15 @@ class Students extends React.Component {
         {
           this.state.show ? <AddStudent /> : ''
         }
+        <div className='grid'>
         {
           this.props.students.map(student => {
             return (
-              <div key={student.id}>
+              <div key={student.id} className='container'>
                 <Link
                   to={`student/${student.id}`}
                   >
-                    <div>
+                    <div className='each-grid'>
                         <img src={student.imageUrl}></img>
                         <h3>
                           {student.firstName + ' ' + student.lastName}
@@ -41,11 +42,12 @@ class Students extends React.Component {
                         </p>
                     </div>
                 </Link>
-                <button onClick={() => this.onDelete(student.id)}>Delete</button>
+                <button onClick={() => this.onDelete(student.id)}>X</button>
               </div>
             )
           })
         }
+        </div>
       </div>
     )
   }
