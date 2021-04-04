@@ -75,9 +75,9 @@ const syncAndSeed = async() => {
 
     const [campus1, campus2, campus3] = await Promise.all(
       [
-        ['NYU New York', 'Washington Square Park', 'kind of a rip off'],
-        ['NYU Tandon', 'somewhere in Brooklyn', 'definitely should\'ve gone there'],
-        ['NYU London', 'somewhere in London', 'best study abroad semester']
+        ['NYU New York', 'New York, NY 10003', 'New York University is a private research university in New York City. Chartered in 1831 by the New York State Legislature, NYU was founded by a group of New Yorkers led by then Secretary of the Treasury Albert Gallatin.'],
+        ['NYU Tandon', '6 MetroTech Center, Brooklyn, NY 11201', 'The New York University Tandon School of Engineering is the engineering and applied sciences school of New York University. Tandon is the second oldest private engineering and technology school in the United States. '],
+        ['NYU London', '6 Bedford Square, Bloomsbury, London WC1B 3RA, United Kingdom', "NYU London is an academic centre of New York University located in London, United Kingdom. It is one of NYU's 14 global academic centres, and the largest of these which does not grant its own degrees, hosting around 480 students each semester."]
       ].map(([name, address, description]) => Campus.create({ name, address, description }))
     );
 

@@ -6,6 +6,8 @@ const LOAD_STUDENTS = 'LOAD_STUDENTS';
 const LOAD_CAMPUSES = 'LOAD_CAMPUSES';
 const CREATE_STUDENT = 'CREATE_STUDENT';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
+const DELETE_STUDENT = 'DELETE_STUDENT';
 
 //ACTIONS
 const loadStudentsObj = (students) => {
@@ -84,6 +86,44 @@ const createCampus = (name, address, description) => { //gets imported from comp
   }
 }
 
+const _deleteStudent = (studentId) => {
+  return {
+    type: DELETE_STUDENT,
+    studentId,
+  }
+}
+
+const deleteStudent = (studentId) => {
+  return async(dispatch) => {
+    try {
+      console.log(studentId)
+      await axios.delete(`api/students/${studentId}`).data;
+      dispatch(_deleteStudent(studentId))
+    } catch(err) {
+      console.log(err);
+    }
+  }
+}
+
+const _deleteCampus = (campusId) => {
+  return {
+    type: DELETE_CAMPUS,
+    campusId,
+  }
+}
+
+const deleteCampus = (campusId) => {
+  return async(dispatch) => {
+    try {
+      console.log(campusId)
+      await axios.delete(`api/campuses/${campusId}`).data;
+      dispatch(_deleteCampus(campusId))
+    } catch(err) {
+      console.log(err);
+    }
+  }
+}
+
 //REDUCERS
 const studentsReducer = (state=[], action) => {
   //action: {type: "LOAD_STUDENTS", students: Array(3)}
@@ -92,6 +132,10 @@ const studentsReducer = (state=[], action) => {
   };
   if (action.type === CREATE_STUDENT) {
     state = [...state, action.student]
+  }
+  if (action.type === DELETE_STUDENT) {
+    let newState = state.filter(student => student.id != action.studentId);
+    state = newState;
   }
   return state;
 }
@@ -102,6 +146,10 @@ const campusesReducer = (state=[], action) => {
   }
   if (action.type === CREATE_CAMPUS) {
     state = [...state, action.campus]; //turn state into array for campuses.map in Campuses component
+  }
+  if (action.type === DELETE_CAMPUS) {
+    let newState = state.filter(campus => campus.id != action.campusId);
+    state = newState;
   }
   return state;
 }
@@ -116,4 +164,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
-export { loadStudents, loadCampuses, createStudent, createCampus };
+export { loadStudents, loadCampuses, createStudent, createCampus, deleteCampus, deleteStudent };

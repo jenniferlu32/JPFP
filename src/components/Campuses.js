@@ -2,11 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AddButton from './AddButton';
 import { connect } from 'react-redux';
+import { deleteCampus, loadCampuses } from '../store';
 
 class Campuses extends React.Component {
   constructor() {
     super();
+    this.onDelete = this.onDelete.bind(this);
   }
+
+  onDelete(campusId) {
+    this.props.deleteCampus(campusId);
+  }
+
   render() {
     return (
       <div>
@@ -14,8 +21,8 @@ class Campuses extends React.Component {
         {
           this.props.campuses.map(campus => {
             return (
-              <Link key={campus.id} to={`/campus/${campus.id}`}>
-                <div>
+              <div key={campus.id}>
+              <Link to={`/campus/${campus.id}`}>
                   <img src={campus.imageUrl}></img>
                   <h3>
                     {campus.name}
@@ -23,8 +30,10 @@ class Campuses extends React.Component {
                   <p>
                     {campus.address}
                   </p>
-                </div>
+
               </Link>
+              <button onClick={() => this.onDelete(campus.id)}>Delete</button>
+              </div>
             )
           })
         }
@@ -39,4 +48,11 @@ const mapStateToProps = (state) => { //to access campuses in props
   }
 }
 
-export default connect(mapStateToProps, null)(Campuses);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteCampus: (campusId) => dispatch(deleteCampus(campusId)),
+    loadCampuses: () => dispatch(loadCampuses()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Campuses);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AddButton from './AddButton';
 import AddStudent from './AddStudent';
+import { connect } from 'react-redux';
+import { deleteStudent } from '../store';
 
 class Students extends React.Component {
   constructor() {
@@ -9,7 +10,13 @@ class Students extends React.Component {
     this.state = {
       show: false,
     }
+    this.onDelete = this.onDelete.bind(this);
   }
+
+  onDelete(studentId) {
+    this.props.deleteStudent(studentId);
+  }
+
   render() {
     return (
       <div>
@@ -20,19 +27,22 @@ class Students extends React.Component {
         {
           this.props.students.map(student => {
             return (
-              <Link key={student.id}
-                to={`student/${student.id}`}
-                >
-                  <div>
-                      <img src={student.imageUrl}></img>
-                      <h3>
-                        {student.firstName + ' ' + student.lastName}
-                      </h3>
-                      <p>
-                        {student.email}
-                      </p>
-                  </div>
-              </Link>
+              <div key={student.id}>
+                <Link
+                  to={`student/${student.id}`}
+                  >
+                    <div>
+                        <img src={student.imageUrl}></img>
+                        <h3>
+                          {student.firstName + ' ' + student.lastName}
+                        </h3>
+                        <p>
+                          {student.email}
+                        </p>
+                    </div>
+                </Link>
+                <button onClick={() => this.onDelete(student.id)}>Delete</button>
+              </div>
             )
           })
         }
@@ -41,4 +51,16 @@ class Students extends React.Component {
   }
 }
 
-export default Students;
+const mapStateToProps = (state) => { //to access students in props
+  return {
+    students: state.students
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteStudent: (studentId) => dispatch(deleteStudent(studentId)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

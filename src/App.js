@@ -12,23 +12,16 @@ import Campuses from './components/Campuses';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { //template of adding a new student
-      firstName: '',
-      lastName: '',
-      email: '',
-      gpa: 0
-    }
   }
 
   componentDidMount() {
-    //this.props: {students: Array(0), loadStudents: f, loadCampuses: f, createStudents: f}
     this.props.loadStudents(); //where react interacts with the store and calls function after each render
     this.props.loadCampuses();
   }
 
   render() {
     //['Jennifer', 'Lu', 'jenniferlu32@gmail.com', 3.63]
-    const { firstName, lastName, email, gpa } = this.state; //user input
+    //const { firstName, lastName, email, gpa } = this.state; //user input
     return (
       <HashRouter>
         <Nav />

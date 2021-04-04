@@ -18,7 +18,19 @@ class singleStudent extends React.Component {
   render() {
     const { student } = this.state;
     if (!student.campus) {
-      return null;
+      return (
+        <div>
+          <img src={student.imageUrl}></img>
+          <h3>
+            {student.firstName + ' ' + student.lastName}
+          </h3>
+          <p>
+            Email: {student.email}
+          </p>
+          <p>GPA: {student.gpa}</p>
+          <p>Campus: no campus</p>
+        </div>
+      )
     } else {
       return (
           <div>

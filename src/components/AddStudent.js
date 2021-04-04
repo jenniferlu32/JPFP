@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {createStudent} from '../store';
+import { Student } from './Student';
 
 class AddStudent extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class AddStudent extends React.Component {
     ev.preventDefault(); //prevent refreshing after hitting submit
     const { firstName, lastName, email, gpa } = this.state; //destructure elements from state
     this.props.createStudent(firstName, lastName, email, gpa); //add students to state
+    //<Student students={[...this.props.students, this.state]} />
   }
 
   render() {
