@@ -116,9 +116,26 @@ const _deleteCampus = (campusId) => {
 const deleteCampus = (campusId) => {
   return async(dispatch) => {
     try {
-      console.log(campusId)
       await axios.delete(`api/campuses/${campusId}`).data;
       dispatch(_deleteCampus(campusId))
+    } catch(err) {
+      console.log(err);
+    }
+  }
+}
+
+const _editCampus = (id, name, address, description) => {
+  return {
+    type: EDIT_CAMPUS,
+    id, name, address, description
+  }
+}
+
+const editCampus = (id, name, address, description) => {
+  return async(dispatch) => {
+    try {
+      const campus = (await axios.post(`api/campuses/${id}`)).data;
+      console.log('hi');
     } catch(err) {
       console.log(err);
     }
@@ -165,4 +182,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
-export { loadStudents, loadCampuses, createStudent, createCampus, deleteCampus, deleteStudent };
+export { loadStudents, loadCampuses, createStudent, createCampus, deleteCampus, deleteStudent, editCampus };

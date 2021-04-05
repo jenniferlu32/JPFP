@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import CampusForm from './CampusForm';
 
 class singleCampus extends React.Component {
   constructor() {
     super();
     this.state = {
       campus:'',
+      show: false,
     }
   }
 
@@ -13,6 +15,10 @@ class singleCampus extends React.Component {
     const id = window.location.hash.slice(9);
     const campus = (await axios.get(`api/campuses/${id}`)).data;
     this.setState({ campus })
+  }
+
+  editCampus(campusId) {
+    console.log(campusId)
   }
 
   render() {
@@ -33,7 +39,6 @@ class singleCampus extends React.Component {
           </p>
           <p>{`Description: ${campus.description}`}</p>
           <h3>Students:</h3>
-
             {campus.students.length > 0 ?
             campus.students.map(student => {
               return (
@@ -44,7 +49,12 @@ class singleCampus extends React.Component {
                 </ul>
               )
             }) : <p>No Students</p>}
-
+            <button onClick={() => this.setState({...this.state, show: !this.state.show})}>Edit</button>
+            <div>
+              {
+                this.state.show ? <CampusForm /> : ''
+              }
+            </div>
         </div>
       )
     }

@@ -92,6 +92,19 @@ router.delete('/campuses/:id', async(req, res, next) => {
   } catch(err) {
     next(err);
   }
-})
+});
+
+router.post('/campuses/:id', async(req, res, next) => {
+  try {
+    const { name, address, description } = req.body; //req.body undefined
+    const campus = await Campus.findByPk(req.params.id);
+    campus.name = name;
+    campus.address = address;
+    campus.description = description;
+    await res.status(200).send(campus);
+  } catch(err) {
+    next(err);
+  }
+});
 
 module.exports = router;
