@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router()
 const { models: { Student, Campus } } = require('../db/data');
 
 router.get('/students', async(req, res, next) => {
@@ -94,9 +94,9 @@ router.delete('/campuses/:id', async(req, res, next) => {
   }
 });
 
-router.post('/campuses/:id', async(req, res, next) => {
+router.put('/campuses/:id', async(req, res, next) => {
   try {
-    const { name, address, description } = req.body; //req.body undefined
+    const { name, address, description } = req.body;
     const campus = await Campus.findByPk(req.params.id);
     campus.name = name;
     campus.address = address;

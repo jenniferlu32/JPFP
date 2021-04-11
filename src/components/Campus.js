@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import CampusForm from './CampusForm';
+import { connect } from 'react-redux';
 
 class singleCampus extends React.Component {
   constructor() {
@@ -15,10 +16,6 @@ class singleCampus extends React.Component {
     const id = window.location.hash.slice(9);
     const campus = (await axios.get(`api/campuses/${id}`)).data;
     this.setState({ campus })
-  }
-
-  editCampus(campusId) {
-    console.log(campusId)
   }
 
   render() {
@@ -61,4 +58,10 @@ class singleCampus extends React.Component {
   }
 }
 
-export default singleCampus;
+const mapStateToProps = (state) => {
+  return {
+    campus: state.campus,
+  }
+}
+
+export default connect(mapStateToProps, null)(singleCampus);

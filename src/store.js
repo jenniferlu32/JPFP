@@ -124,18 +124,18 @@ const deleteCampus = (campusId) => {
   }
 }
 
-const _editCampus = (id, name, address, description) => {
+const _editCampus = (campus) => {
   return {
     type: EDIT_CAMPUS,
-    id, name, address, description
+    campus
   }
 }
 
 const editCampus = (id, name, address, description) => {
   return async(dispatch) => {
     try {
-      const campus = (await axios.post(`api/campuses/${id}`)).data;
-      console.log('hi');
+      const campus = (await axios.put(`api/campuses/${id}`, { name, address, description })).data;
+      dispatch(_editCampus(campus));
     } catch(err) {
       console.log(err);
     }
@@ -163,11 +163,17 @@ const campusesReducer = (state=[], action) => {
     state = action.campuses;
   }
   if (action.type === CREATE_CAMPUS) {
-    state = [...state, action.campus]; //turn state into array for campuses.map in Campuses component
+    state = [...state, action.campus];
   }
   if (action.type === DELETE_CAMPUS) {
     let newState = state.filter(campus => campus.id != action.campusId);
     state = newState;
+  }
+  if (action.type === EDIT_CAMPUS) {
+    let campusArr = state.filter(campus => campus.id === action.campus.id);
+    let campus = campusArr[0];
+    let campusId = campus.id - 1;
+    state[campusId] = action.campus;
   }
   return state;
 }
